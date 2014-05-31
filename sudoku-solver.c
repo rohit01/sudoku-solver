@@ -1,6 +1,6 @@
 #include<stdio.h>
 /*
- * Program to solve programs of all difficulty levels.
+ * Program to solve 9X9 sudoku puzzles of all difficulty levels.
  * Author - @rohit01
  */
 
