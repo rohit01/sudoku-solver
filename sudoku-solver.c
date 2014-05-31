@@ -25,8 +25,12 @@ int main() {
     }
     printf("\nSudoku entered:\n");
     print_sudoku(sudoku);
-    solve_sudoku(sudoku);
-    printf("\nSolution:\n");
+    if(solve_sudoku(sudoku) == 0) {
+        printf("\nSolution:\n");
+    }
+    else {
+        printf("\nInvalid sudoku - unable to solve. Partial result:\n");
+    }
     print_sudoku(sudoku);
 }
 
@@ -75,6 +79,7 @@ int print_sudoku(const int sudoku[9][9]) {
 
 int solve_sudoku(int sudoku[9][9], const int guess_in_progress) {
     int i, j, guess, solution[9][9], temp_sudoku[9][9];
+    int success_status = 0;
 
     copy_sudoku(solution, sudoku);
     do {
@@ -94,6 +99,7 @@ int solve_sudoku(int sudoku[9][9], const int guess_in_progress) {
                 if(guess_in_progress == TRUE) {
                     return ERROR;
                 }
+                success_status = 1;
                 for(guess = 1; guess <= 9; ++guess) {
                     if (check_conflict(solution, guess, i, j)) {
                         continue;
@@ -104,12 +110,13 @@ int solve_sudoku(int sudoku[9][9], const int guess_in_progress) {
                         continue;
                     }
                     copy_sudoku(solution, temp_sudoku);
+                    success_status = 0;
                 }
             }
         }
     }
     copy_sudoku(sudoku, solution);
-    return 0;
+    return success_status;
 }
 
 
